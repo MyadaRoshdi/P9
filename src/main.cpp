@@ -68,7 +68,10 @@ int main()
 
 		  // Calcuate steering value here, remember the steering value is [-1, 1].
 
-		  steer_value = deg2rad(pid.TotalError());
+		 // steer_value = rad2deg(pid.TotalError());
+
+		  steer_value = deg2rad(angle)- pid.TotalError();
+
 
           
           // DEBUG
@@ -108,11 +111,11 @@ int main()
     std::cout << "Connected!!!" << std::endl;
   });
 
+
   h.onDisconnection([&h](uWS::WebSocket<uWS::SERVER> ws, int code, char *message, size_t length) {
     ws.close();
     std::cout << "Disconnected" << std::endl;
   });
-
   int port = 4567;
   if (h.listen(port))
   {
