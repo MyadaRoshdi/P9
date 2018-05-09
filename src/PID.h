@@ -41,6 +41,11 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+
+  /*
+  * Twiddle Algorithm used for Tuning the gain parameters given the tolerencde value
+  */
+  void Twiddle(double tol);
 };
 
 #endif /* PID_H */
