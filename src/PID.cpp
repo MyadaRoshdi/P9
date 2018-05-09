@@ -11,12 +11,12 @@ PID::PID() {}
 PID::~PID() {}
 
 void PID::Init(double Kp, double Ki, double Kd) {
-	this.Kp = kp;
-	this.Ki = ki;
-	this.Kd = kd;
-	this.p_error = 0.0;
-	this.d_error = 0.0;
-	this.i_error = 0.0;
+	Kp = kp;
+	Ki = ki;
+	Kd = kd;
+	p_error = 0.0;
+	d_error = 0.0;
+	i_error = 0.0;
 }
 
 void PID::UpdateError(double cte) {
@@ -29,6 +29,6 @@ void PID::UpdateError(double cte) {
 double PID::TotalError() {
 	// Calculate the total error used for computing the steering angle (probortional part + differential part + Integral part)
 
-	return -Kp * p_error - Kd * d_error - Ki * i_error
+	return -Kp * p_error - Kd * d_error - Ki * i_error;
 }
 
