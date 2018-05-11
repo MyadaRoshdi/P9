@@ -71,9 +71,9 @@ int main()
 
 		 steer_value = pid.TotalError();
 		 //steer_value = deg2rad(steer_value);
-		 //steer_value = max(min(1.0, steer_value), -1.0);
+		 steer_value = max(min(1.0, steer_value), -1.0);
 
-		  steer_value = deg2rad(angle)- pid.TotalError();
+		 
 
 
           
