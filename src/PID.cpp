@@ -21,9 +21,7 @@ void PID::Init(double Kp, double Ki, double Kd) {
 }
 
 void PID::UpdateError(double cte) {
-	if (cte > 9.0){
-		cte = 7.5;
-	}
+	
 	d_error = cte - p_error; //update the Derivative error and the difference between the current cte and previous cte
 	p_error = cte; // update the Proportional error as the current cte
 	i_error += cte; // update the Integral error as the accumaled cte among all steps call
@@ -86,6 +84,8 @@ void PID::Twiddle(double tol) {
 		Kp = p[0];
 		Kd = p[1];
 		Ki = p[2];
+		// For debugging purpose
+		cout << "kp = " << Kp << "  kd = " << Kd << "  ki = " << Ki << endl;
 		
 	}
 
