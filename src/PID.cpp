@@ -24,7 +24,7 @@ void PID::UpdateError(double cte) {
 	p_error = cte; // update the Proportional error as the current cte
 	i_error += cte; // update the Integral error as the accumaled cte among all steps call
 	// TODO: USE TWIDDLE ALGORITHM TO ADJUST THE GAIN VALUES (kp,kd,ki)
-	//Twiddle(1.0);
+	Twiddle(0.2);
 }
 
 double PID::TotalError() {
@@ -36,7 +36,7 @@ double PID::TotalError() {
 void PID::Twiddle(double tol) {
 	//Using Twiddle Algorithm to adjust the gain values (Kp,Kd,Ki)
 	double p[] = { Kp, Kd, Ki };
-	double dp[] = { 1.0, 1.0, 1.0 };
+	double dp[] = { 0.1, 0.1, 0.1 };
 	double best_err = TotalError();
 	double err = 0.0;
 	
