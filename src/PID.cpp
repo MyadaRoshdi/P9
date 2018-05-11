@@ -51,7 +51,7 @@ void PID::Twiddle(double tol) {
 			err = TotalError();
 			if (err < best_err) {
 				best_err = err;
-				dp[i] *= 1.1;
+				dp[i] *= 1.05;
 
 			}
 			else {
@@ -65,13 +65,13 @@ void PID::Twiddle(double tol) {
 				if (err < best_err) {
 
 					best_err = err;
-					dp[i] *= 1.1;
+					dp[i] *= 1.05;
 				}
 				
 				else {
 
 					p[i] += dp[i];
-					dp[i] *= 0.9;
+					dp[i] *= 0.85;
 				}
 				
 			}
