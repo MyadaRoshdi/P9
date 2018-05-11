@@ -36,7 +36,7 @@ double PID::TotalError() {
 void PID::Twiddle(double tol) {
 	//Using Twiddle Algorithm to adjust the gain values (Kp,Kd,Ki)
 	double p[] = { Kp, Kd, Ki };
-	double dp[] = { 0.1, 0.1, 0.1 };
+	double dp[] = { 0.05, 0.05, 0.05 };
 	double best_err = TotalError();
 	double err = 0.0;
 	
