@@ -21,7 +21,7 @@ void PID::Init(double Kp, double Ki, double Kd) {
 }
 
 void PID::UpdateError(double cte) {
-	if (abs(cte) > 9.0){
+	if (cte > 9.0){
 		cte = 7.5;
 	}
 	d_error = cte - p_error; //update the Derivative error and the difference between the current cte and previous cte
