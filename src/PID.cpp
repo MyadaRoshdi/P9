@@ -74,7 +74,7 @@ void PID::Twiddle(double tol) {
 				else {
 
 					p[i] += dp[i];
-					dp[i] *= 0.85;
+					dp[i] *= 0.95;
 				}
 				
 			}
