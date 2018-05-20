@@ -37,7 +37,7 @@ int main()
 
   PID pid_steer, pid_throttle;
   // Initialize the pid variable.
-  pid_steer.Init(0.1, 0.0, 0.0);
+  pid_steer.Init(0.1, 0.0, 2.0);
   pid_throttle.Init(0.45, 0.0000001, 0.5);
   
  
