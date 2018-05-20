@@ -71,8 +71,8 @@ int main()
 
 		 steer_value = pid_steer.TotalError();
 		 //steer_value = deg2rad(steer_value);
-		 //steer_value = min(1.0, 0.8); // limit steer_value not more than 1
-		 //steer_value = max(steer_value, -1.0); // limit steer_value not less than -1
+		 steer_value = min(1.0, steer_value); // limit steer_value not more than 1
+		 steer_value = max(steer_value, -1.0); // limit steer_value not less than -1
 		// pid_throttle.UpdateError(fabs(steer_value));
 		 //throttle_value = max_throttle - pid_throttle.Kp * pid_throttle.p_error - pid_throttle.Ki * pid_throttle.i_error - pid_throttle.Kd * pid_throttle.d_error;
 
