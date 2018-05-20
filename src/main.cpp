@@ -35,10 +35,10 @@ int main()
 {
   uWS::Hub h;
 
-  PID pid;
+  PID pid_steer, pid_throttle;
   // Initialize the pid variable.
-  pid.Init(0.1, 0.1, 0.1);
- // pid.Init(0.2, 0, 0);
+  pid_steer.Init(0.1, 0.001, 2.9);
+  pid_throttle.Init(0.45, 0.0000001, 0.5);
   
  
 
@@ -57,7 +57,7 @@ int main()
           double cte = std::stod(j[1]["cte"].get<std::string>());
           double speed = std::stod(j[1]["speed"].get<std::string>());
           double angle = std::stod(j[1]["steering_angle"].get<std::string>());
-          double steer_value;
+          double steer_value, throttle_value = 0.3, max_throttle = 0.8;
           /*
           *  Calcuate steering value here, remember the steering value is
           * [-1, 1].
@@ -71,7 +71,8 @@ int main()
 
 		 steer_value = pid.TotalError();
 		 //steer_value = deg2rad(steer_value);
-		 steer_value = max(min(1.0, steer_value), -1.0);
+		// steer_value = max(min(1.0, steer_value), -1.0);
+		 throttle_value = max_throttle - pid_throttle.Kp * pid_throttle.p_error - pid_throttle.Ki * pid_throttle.i_error - pid_throttle.Kd * pid_throttle.d_error;
 
 		 
 
@@ -82,7 +83,7 @@ int main()
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
-          msgJson["throttle"] = 0.3;
+          msgJson["throttle"] = throttle_value;
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
           std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
