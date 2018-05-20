@@ -65,13 +65,14 @@ int main()
           * another PID controller to control the speed!
           */
 		  
-		  pid.UpdateError(cte); // Adjust the gains value based on the current cte
+		  pid_steer.UpdateError(cte); // Adjust the gains value based on the current cte
 
 		  // Calcuate steering value here, remember the steering value is [-1, 1].
 
 		 steer_value = pid.TotalError();
 		 //steer_value = deg2rad(steer_value);
 		// steer_value = max(min(1.0, steer_value), -1.0);
+		 pid_throttle.UpdateError(fabs(steer_value));
 		 throttle_value = max_throttle - pid_throttle.Kp * pid_throttle.p_error - pid_throttle.Ki * pid_throttle.i_error - pid_throttle.Kd * pid_throttle.d_error;
 
 		 
