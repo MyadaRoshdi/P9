@@ -37,7 +37,7 @@ int main()
 
   PID pid_steer, pid_throttle;
   // Initialize the pid variable.
-  pid_steer.Init(0.13, 0.0, 2.5);
+  pid_steer.Init(0.1, 0.001, 2.8);
   pid_throttle.Init(0.45, 0.0000001, 0.5);
   
  
@@ -57,7 +57,7 @@ int main()
           double cte = std::stod(j[1]["cte"].get<std::string>());
           double speed = std::stod(j[1]["speed"].get<std::string>());
           double angle = std::stod(j[1]["steering_angle"].get<std::string>());
-          double steer_value, throttle_value = 0.4, max_throttle = 0.8;
+          double steer_value, throttle_value = 0.4,min_throttle = 0.3, max_throttle = 1.0;
           /*
           *  Calcuate steering value here, remember the steering value is
           * [-1, 1].
@@ -71,7 +71,7 @@ int main()
 
 		 steer_value = pid_steer.TotalError();
 		 //steer_value = deg2rad(steer_value);
-		// steer_value = max(min(1.0, steer_value), -1.0);
+		 steer_value = max(min(1.0, steer_value), -1.0);
 		// pid_throttle.UpdateError(fabs(steer_value));
 		 //throttle_value = max_throttle - pid_throttle.Kp * pid_throttle.p_error - pid_throttle.Ki * pid_throttle.i_error - pid_throttle.Kd * pid_throttle.d_error;
 
@@ -80,7 +80,7 @@ int main()
 
           
           // DEBUG
-          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
+          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl << "Throttle:" << throttle_value;
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
