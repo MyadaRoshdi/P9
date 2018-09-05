@@ -2,6 +2,78 @@
 Self-Driving Car Engineer Nanodegree Program
 
 ---
+## Rubric-Points
+### Describe the effect each of the P, I, D components had in your implementation.
+-  P (proportional): This component causes the car to steer proportional (and opposite) to minimize the car's distance from the lane center (CTE)
+
+- I (integral): This component helps to prevent the systematic bias in the CTE which prevents the P-D controller from reaching the center line. 
+
+- D (differential): This component helps to prevent the overshoot the center line that may happen using only P-component. D parameter needs to be tuned to cause the car to approach the center line smoothly.
+
+### Describe how the final hyperparameters were chosen.
+Hyperparameters were tuned manually. I tried to automate parameter tuning using Twiddle, but it didn't give the best behavior of the car. it was very common for the car to leave the track.
+
+My Twiddle Alg implementation:
+
+void PID::Twiddle(double tol) {
+	//Using Twiddle Algorithm to adjust the gain values (Kp,Kd,Ki)
+	double p[] = { Kp, Kd, Ki };
+	double dp[] = { 0.05, 0.05, 0.05 };
+	double best_err = TotalError();
+	double err = 0.0;
+	
+	while ((dp[0] + dp[1] + dp[2]) > tol) {
+		
+		for (int i = 0; i < 3; i++) {
+
+			p[i] += dp[i];
+			Kp = p[0];
+			Kd = p[1];
+			Ki = p[2];
+			err = TotalError();
+			if (err < best_err) {
+				best_err = err;
+				dp[i] *= 1.05;
+
+			}
+			else {
+
+				p[i] -= 2 * dp[i];
+				Kp = p[0];
+				Kd = p[1];
+				Ki = p[2];
+				err = TotalError();
+
+				if (err < best_err) {
+
+					best_err = err;
+					dp[i] *= 1.05;
+				}
+				
+				else {
+
+					p[i] += dp[i];
+					dp[i] *= 0.95;
+				}
+				
+			}
+			
+				
+
+		}
+		Kp = p[0];
+		Kd = p[1];
+		Ki = p[2];
+		// For debugging purpose
+		cout << "kp = " << Kp << "  kd = " << Kd << "  ki = " << Ki << endl;
+		
+	}
+
+#### I also changed the initial values for steering and throttle:
+
+ // Initialize the pid variable.
+  pid_steer.Init(0.12, 0.01, 3.5);
+  pid_throttle.Init(0.45, 0.0000001, 0.5);
 
 ## Dependencies
 
