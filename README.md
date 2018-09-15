@@ -72,9 +72,16 @@ void PID::Twiddle(double tol) {
 
 #### I also changed the initial values for steering and throttle:
 
- // Initialize the pid variable.
+ 1st, I started using 2-pid controllers one for steering and one for throttle
+ */
   pid_steer.Init(0.12, 0.01, 3.5);
+  */
   pid_throttle.Init(0.45, 0.0000001, 0.5);
+  
+  But I didn't get the best behavior, so I just make throttle constant value (0.3), and used one pid controller for steering with final parameter tuned to the following values:
+  
+  */
+   pid.Init(0.15, 0.0, 2.5);
 
 ## Dependencies
 
