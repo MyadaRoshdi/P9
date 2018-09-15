@@ -74,7 +74,7 @@ int main()
 
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
-          std::cout << "Average Error : " <<  pid.AverageError() << " [" << pid.MinError() << ", " << pid.MaxError() << "]"<< std::endl;
+          std::cout << "Average Error : " <<  pid.AverageError() << std::endl;
           json msgJson;
           msgJson["steering_angle"] = steer_value;
           msgJson["throttle"] = 0.3;
