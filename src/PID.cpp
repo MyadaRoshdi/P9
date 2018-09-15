@@ -118,7 +118,7 @@ void PID::Twiddle(double tol) {
 		Kd = p[1];
 		Ki = p[2];
 		// For debugging purpose
-		cout << "kp = " << Kp << "  kd = " << Kd << "  ki = " << Ki << endl;
+		//cout << "kp = " << Kp << "  kd = " << Kd << "  ki = " << Ki << endl;
 		
 	}
 
