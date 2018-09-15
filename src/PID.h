@@ -11,13 +11,6 @@ public:
   double d_error;
   double prev_cte;
 
-  /**
-   * Error counters
-  **/
-  long counter;
-  double errorSum;
-  double minError;
-  double maxError;
 
   /*
   * Coefficients
@@ -51,21 +44,6 @@ public:
   */
   double TotalError();
 
-  /*
-  *  Returns the average error.
-  */
-  double AverageError();
-
-  /*
-  * Returns the min error.
-  */
-  double MinError();
-
-  /*
-  * Returns the max error.
-  */
-  double MaxError();
- 
   /*
   * Twiddle Algorithm used for Tuning the gain parameters given the tolerencde value
   */
