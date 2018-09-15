@@ -1,11 +1,10 @@
 #include "PID.h"
-#include <cstdlib>
-#include <iostream>
 
-using namespace std;
+#include <algorithm>
+// using namespace std;
 
 /*
-* Complete implementation of the PID class
+* TODO: Complete the PID class.
 */
 
 PID::PID() {}
@@ -13,31 +12,60 @@ PID::PID() {}
 PID::~PID() {}
 
 void PID::Init(double Kp, double Ki, double Kd) {
-	this->Kp = Kp;
-	this->Ki = Ki;
-	this->Kd = Kd;
-	p_error = 0.0;
-	d_error = 0.0;
-	i_error = 0.0;
-        prev_cte = 0.0;
+  PID::Kp = Kp;
+  PID::Ki = Ki;
+  PID::Kd = Kd;
 
-       
-       }
+  p_error = 0.0;
+  i_error = 0.0;
+  d_error = 0.0;
+
+  // Previous cte.
+  prev_cte = 0.0;
+
+  // Counters.
+  counter = 0;
+  errorSum = 0.0;
+  minError = std::numeric_limits<double>::max();
+  maxError = std::numeric_limits<double>::min();
+}
 
 void PID::UpdateError(double cte) {
-	//double prev_error = p_error;
-	p_error = cte; // update the Proportional error as the current cte
-	d_error = cte - prev_cte; //update the Derivative error and the difference between the current cte and previous cte
-	i_error += cte; // update the Integral error as the accumaled cte among all steps call
-	prev_cte = cte;
-	// TODO: USE TWIDDLE ALGORITHM TO ADJUST THE GAIN VALUES (kp,kd,ki)
-	 //Twiddle(0.1);
+  // Proportional error.
+  p_error = cte;
+
+  // Integral error.
+  i_error += cte;
+
+  // Diferential error.
+  d_error = cte - prev_cte;
+  prev_cte = cte;
+
+  errorSum += cte;
+  counter++;
+
+  if ( cte > maxError ) {
+    maxError = cte;
+  }
+  if ( cte < minError ) {
+    minError = cte;
+  }
 }
 
 double PID::TotalError() {
-	// Calculate the total error used for computing the steering angle (probortional part + differential part + Integral part)
+  return p_error * Kp + i_error * Ki + d_error * Kd;
+}
 
-	return -Kp * p_error - Kd * d_error - Ki * i_error;
+double PID::AverageError() {
+  return errorSum/counter;
+}
+
+double PID::MinError() {
+  return minError;
+}
+
+double PID::MaxError() {
+  return maxError;
 }
 
 void PID::Twiddle(double tol) {
