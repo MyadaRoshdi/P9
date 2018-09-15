@@ -21,11 +21,7 @@ void PID::Init(double Kp, double Ki, double Kd) {
 	i_error = 0.0;
         prev_cte = 0.0;
 
-       // Counters.
-       counter = 0;
-       errorSum = 0.0;
-       minError = std::numeric_limits<double>::max();
-       maxError = std::numeric_limits<double>::min();
+       
        }
 
 void PID::UpdateError(double cte) {
