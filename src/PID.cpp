@@ -24,10 +24,10 @@ void PID::Init(double Kp, double Ki, double Kd) {
   prev_cte = 0.0;
 
   // Counters.
-  counter = 0;
-  errorSum = 0.0;
-  minError = std::numeric_limits<double>::max();
-  maxError = std::numeric_limits<double>::min();
+  //counter = 0;
+  //errorSum = 0.0;
+ // minError = std::numeric_limits<double>::max();
+  //maxError = std::numeric_limits<double>::min();
 }
 
 void PID::UpdateError(double cte) {
@@ -41,15 +41,15 @@ void PID::UpdateError(double cte) {
   d_error = cte - prev_cte;
   prev_cte = cte;
 
-  errorSum += cte;
-  counter++;
+  //errorSum += cte;
+  //counter++;
 
-  if ( cte > maxError ) {
-    maxError = cte;
-  }
-  if ( cte < minError ) {
-    minError = cte;
-  }
+ // if ( cte > maxError ) {
+    //maxError = cte;
+  //}
+  //if ( cte < minError ) {
+    //minError = cte;
+  //}
 }
 
 double PID::TotalError() {
@@ -60,13 +60,13 @@ double PID::AverageError() {
   return errorSum/counter;
 }
 
-double PID::MinError() {
-  return minError;
-}
+//double PID::MinError() {
+ // return minError;
+//}
 
-double PID::MaxError() {
-  return maxError;
-}
+//double PID::MaxError() {
+  //return maxError;
+//}
 
 void PID::Twiddle(double tol) {
 	//Using Twiddle Algorithm to adjust the gain values (Kp,Kd,Ki)
