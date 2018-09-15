@@ -84,7 +84,7 @@ int main()
 
           
           // DEBUG
-          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl << "Throttle:" << throttle_value;
+          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl ;
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
