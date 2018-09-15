@@ -31,7 +31,7 @@ void PID::Init(double Kp, double Ki, double Kd) {
 void PID::UpdateError(double cte) {
 	//double prev_error = p_error;
 	p_error = cte; // update the Proportional error as the current cte
-	d_error = cte - prev_error; //update the Derivative error and the difference between the current cte and previous cte
+	d_error = cte - prev_cte; //update the Derivative error and the difference between the current cte and previous cte
 	i_error += cte; // update the Integral error as the accumaled cte among all steps call
 	prev_cte = cte;
 	// TODO: USE TWIDDLE ALGORITHM TO ADJUST THE GAIN VALUES (kp,kd,ki)
